@@ -1,0 +1,79 @@
+Emilie de Longueau			
+
+			HOMEWORK : EXPLORING DATA WITH CLI
+
+I chose to explore the Yelp review dataset (yelp_academic_dataset_review.json)
+It is a sample of business reviews listed on Yelp for Phoenix, AZ metropolitan area.
+
+INFORMATION PROVIDED:
+- « votes »: votes for the review (count for each type of vote, « funny », « useful » and « cool »)
+- « user_id »: encrypted user id
+- « review_id »: encrypted business id
+- « stars »: star rating, rounded to half-stars
+- « date »: review date, formatted like YYYY-MM-DD
+- « type »: « review » for this dataset
+- « text »: review text
+
+One entry example :
+
+{"votes": {"funny": 0, "useful": 1, "cool": 0}, "user_id": "0hT2KtfLiobPvh6cDC8JQg", "review_id": "IESLBzqUCLdSzSqm0eCSxQ", "stars": 4, "date": "2012-06-14", "text": "love the gyro plate. Rice is so good and I also dig their candy selection :)", "type": "review", "business_id": "6oRAC4uyJCsJl1X0WZpVSA"}
+
+wc -l yelp_academic_dataset_review.json
+—> There are 229 907 records in the dataset, and the size of the file is 206MB.
+
+
+QUESTIONS:
+
+1 - Between which time range were the sample reviews selected?
+grep -Eo '"date": "[0-9]{4}\-[0-9]{2}\-' yelp_academic_dataset_review.json  | sort -rg | uniq -c
+—> The dataset shows the reviews from 2005-03 to 2013-01
+
+
+2 -  Among all the records, how many reviews have 5,4,3,2,1 stars?
+
+grep -Eo '"stars": [0-9],' yelp_academic_dataset_review.json | sort -rg | uniq -c
+—>
+76193 "stars": 5,
+79878 "stars": 4,
+35363 "stars": 3,
+20957 "stars": 2,
+17516 "stars": 1,
+To sum up:
+33% of the reviews gave a 5 score
+35% of the reviews gave a 4 score
+15% of the reviews gave a 3 score
+9% of the reviews gave a 2 score
+8% of the reviews gave a 1 score
+
+3 -  How many reviews were written for each year? Classification of the years with total number of reviews:
+grep -oE '"date": "[0-9]{4}' yelp_academic_dataset_review.json | sort -rg | uniq -c | sort -n
+
+ 101 "date": "2005
+1216 "date": "2006
+1453 "date": "2013
+6671 "date": "2007
+16996 "date": "2008
+26663 "date": "2009
+42571 "date": "2010
+63819 "date": "2011
+70417 "date": "2012
+
+The number of reviews has grown each year. There are only 1453 reviews for 2013 because the dataset only shows January reviews.
+
+
+INTERESTING FILES:
+
+—> All users ID sorted by total number of reviews posted
+grep -Eo '"user_id": ".{22}"' yelp_academic_dataset_review.json | sort -rg | uniq -c | sort -n > user#reviews.txt 
+It enables to show the best users, the worst ones, and the proportion of occasional and addict users. It also enables to better understand users’ behavior to improve targeted advertising.
+wc -l user#reviews.txt
+There are 45 981 users who posted reviews, and for example 13 users have posted more than 300 reviews in the time range of the provided sample.
+
+—> All business sorted by total number of reviews posted
+grep -oE '"business_id": ".{22}"' yelp_academic_dataset_review.json | sort -g | uniq -c | sort -n > business#review.txt
+It provides the total of business rated and enables to understand which business are the most reviewed by users. If we have the corresponding name/sector per business_id we can analyze the number of review per sector and see the ones users most review.
+wc -l business#review.txt 
+There are 11 537 business reviewed in the dataset, and 23 got more than 400 reviews from users.
+
+
+
