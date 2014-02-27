@@ -1,0 +1,4 @@
+Gini Index: 0.487709185938
+Gini Index after split: 0.415021372027
+If we assume binary decision tree based on one splitting value for the continuous attribute 'contribution amount'
+[Best contribution splitting value, Lowest Gini Index after binary split]: [42, 0.48040871157082043] 
