@@ -1,0 +1,37 @@
+Emilie de Longueau
+
+Midterm review
+
+Question #5: What does ETL stand for?
+ETL stands for "Extract, Load, Transform". It is a process used for a database usage,especially in data warehousing that:
+- extracts data from outside sources
+- transforms it to fit operational needs
+- loads it into the end target (database, data warehouse)
+ETL systems are commonly used to integrate data from multiple applications, typically developed and supported by different vendors. The disparate systems containing the original data 
+are frequently managed and operated by different employees.
+The extraction is the most challenging aspect of ETL
+
+Source
+Wikipedia (http://en.wikipedia.org/wiki/Extract,_transform,_load)
+
+
+
+Question#10: What is information gain and how is it used to build decision trees?
+When building a decision tree, we want to determine which attribute in a given set of training 
+feature vectors is most useful for discriminating between the classes to be learned.
+Information gain tells us how important a given attribute of the feature vector is.
+It is used to decide the ordering/priority of attributes in the nodes of a decision tree.
+Information gain : entropy(parent) - [average entropy(children)]
+with entropy = SUM(-pi.log(pi)) where pi is probability of class i
+
+To construct a decision tree, we choose the next attribute to use by selecting the one 
+with highest information gain for the parent training set. 
+And we iterate the same process for the child nodes.
+Having a big information gain (low entropy fo child nodes) means that the samples have similar 
+values and are homogeneous. If the sample is completely homogeneous, the entropy is zero and if
+the sample is an eually divided it has entropy of one.
+
+Sources:
+http://courses.cs.washington.edu/courses/cse455/10au/notes/InfoGain.pdf
+http://www.saedsayad.com/decision_tree_reg.htm
+
